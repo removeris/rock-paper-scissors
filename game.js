@@ -11,52 +11,50 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(){
-    let choice;
-    do{
-        choice = prompt("Choose rock, paper or scissors");
-        choice = choice.toLowerCase();
-
-        if (choice === 'rock' || choice === 'paper' || choice === 'scissors'){
-            break;
-        }
-        else{
-            alert('Invalid Input');
-        }
-    } while(true)
-    
-    return choice;
-}
-
 function playRound(humanChoice, computerChoice){
+    
+    const results = document.querySelector("#results");
+    
     if((humanChoice == 'rock' && computerChoice == 'scissors') ||
        (humanChoice == 'scissors' && computerChoice == 'paper') ||
        (humanChoice == 'paper' && computerChoice == 'rock') ){
         
-        console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+        results.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
         humanScore++;
     }
     else if(humanChoice == computerChoice){
-        console.log(`It's a draw. You both picked ${humanChoice}.`);
+        results.textContent = `It's a draw. You both picked ${humanChoice}.`;
     }
     else{
-        console.log(`You lost.. ${computerChoice} beats ${humanChoice}`);
+        results.textContent = `You lost.. ${computerChoice} beats ${humanChoice}`;
         computerScore++;
     }
 }
 
 function playGame(){
-    for(let i = 0; i < 5; i++){
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        console.log(`The Score is [${humanScore}:${computerScore}]`);
-    }
+    
+    let humanSelection = getHumanChoice();
+    let computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+    console.log(`The Score is [${humanScore}:${computerScore}]`);
 }
+
+
+
+
 
 let humanScore = 0, computerScore = 0;
 
-playGame();
+let choice;
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) =>  {
+    button.addEventListener("click", () => {
+        playRound(button.id, getComputerChoice());
+    })
+})
+
 
 
 
