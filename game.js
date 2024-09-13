@@ -14,6 +14,7 @@ function getComputerChoice(){
 function playRound(humanChoice, computerChoice){
     
     const results = document.querySelector("#results");
+    const score = document.querySelector("#score");
     
     if((humanChoice == 'rock' && computerChoice == 'scissors') ||
        (humanChoice == 'scissors' && computerChoice == 'paper') ||
@@ -29,19 +30,24 @@ function playRound(humanChoice, computerChoice){
         results.textContent = `You lost.. ${computerChoice} beats ${humanChoice}`;
         computerScore++;
     }
+
+    score.textContent = `You ${humanScore} : ${computerScore} Computer`;
+
+    const finish = document.createElement("div");
+
+    if(humanScore === 5){
+        finish.textContent = `You won, congratulations!`;
+        humanScore = 0;
+        computerScore = 0;
+    }
+    if(computerScore === 5){
+        finish.textContent = `You lost, better luck next time!`;
+        humanScore = 0;
+        computerScore = 0;
+    }
+
+    results.appendChild(finish);
 }
-
-function playGame(){
-    
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    console.log(`The Score is [${humanScore}:${computerScore}]`);
-}
-
-
-
-
 
 let humanScore = 0, computerScore = 0;
 
